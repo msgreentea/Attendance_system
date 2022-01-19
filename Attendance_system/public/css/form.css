@@ -1,0 +1,29 @@
+form {
+    text-align: center;
+    margin: 0 auto;
+}
+input,
+button {
+    display: block;
+    width: 400px;
+    padding: 15px;
+    outline: none;
+    border-radius: 5px;
+    margin: 20px auto;
+}
+input {
+    background-color: #f2f2f2;
+    border: solid 2px #aaa;
+}
+button {
+    /* color: #2585d0; */
+    background-color: #224ae0;
+    color: white;
+    border: none;
+}
+.gray {
+    color: #aaa;
+}
+a {
+    padding: 10px 0;
+}
