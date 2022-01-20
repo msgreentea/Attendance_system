@@ -1,0 +1,12 @@
+table {
+    width: 100%;
+    table-layout: auto;
+    text-align: center;
+}
+tr {
+    width: 100%;
+    line-height: 4;
+    /* height: 60px; */
+    /* line-height: 60px; */
+    border-top: 1px solid #aaa;
+}
