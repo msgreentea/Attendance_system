@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
-    public function stamp()
+    public function attendance()
     {
-        return view('stamp');
+        return view('attendance');
     }
 }
