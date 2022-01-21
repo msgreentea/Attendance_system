@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-
+    ログイン
 @endsection
 
 
