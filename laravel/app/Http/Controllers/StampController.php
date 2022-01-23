@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class StampController extends Controller
 {
-    public function stamp()
+    public function index()
     {
-        return view('stamp');
+        return view('stamp.index');
     }
 }

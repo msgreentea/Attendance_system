@@ -12,9 +12,9 @@
 @section('nav')
     <nav>
         <ul class="header-ul">
-            <li class="header-list bold"><a href="{{ route('stamp') }}">ホーム</a></li>
-            <li class="header-list bold"><a href="{{ route('attendance') }}">日付一覧</a></li>
-            <li class="header-list bold"><a href="{{ route('login') }}">ログアウト</a></li>
+            <li class="header-list bold"><a href="{{ route('stamp.index') }}">ホーム</a></li>
+            <li class="header-list bold"><a href="{{ route('attendance.index') }}">日付一覧</a></li>
+            <li class="header-list bold"><a href="{{ route('show') }}">ログアウト</a></li>
         </ul>
     </nav>
 @endsection

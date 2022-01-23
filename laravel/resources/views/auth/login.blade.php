@@ -17,5 +17,5 @@
         <button>ログイン</button>
     </form>
     <p class="center gray">アカウントをお持ちでない方はこちらから</p>
-    <a href="{{ route('register') }}" class="center">会員登録</a>
+    <a href="{{ route('create') }}" class="center">会員登録</a>
 @endsection
