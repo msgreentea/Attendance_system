@@ -1,23 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StampController;
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
 
-// 打刻ページ
-Route::get('/', [StampController::class, 'index'])->name('stamp.index');
-Route::post('/punchin', [StampController::class, 'punchin'])->name('punchin');
-Route::post('/punchout', [StampController::class, 'punchout'])->name('punchout');
-Route::post('/breakin', [StampController::class, 'breakin'])->name('breakin');
-Route::post('/breakout', [StampController::class, 'breakout'])->name('breakout');
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
-// 日付別勤怠ページ
-Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// ログインページ
-Route::get('/login', [AuthController::class, 'show'])->name('show');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-// 会員登録ページ
-Route::get('/register', [UserController::class, 'create'])->name('create');
+require __DIR__.'/auth.php';
