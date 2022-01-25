@@ -19,5 +19,6 @@
         <button>会員登録</button>
     </form>
     <p class="gray center">アカウントをお持ちの方はこちらから</p>
-    <a href="{{ route('show') }}" class="center">ログイン</a>
+    <a href="{{ route('auth.show') }}" class="center">ログイン</a>
+    {{-- <a href="{{ route('login') }}" class="center">ログイン</a> --}}
 @endsection
