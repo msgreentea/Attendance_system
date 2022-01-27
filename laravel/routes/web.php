@@ -19,8 +19,6 @@ Route::post('/breakout', [StampController::class, 'breakout'])->name('breakout')
 Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
 
 // ログインページ
-// Route::get('/login', [AuthController::class, 'show'])->name('login.show');
-// Route::get('/login', [AuthController::class, 'show'])->name('login.show');
 Route::get('/login', [AuthController::class, 'show'])->name('auth.show');
 
 // 会員登録ページ

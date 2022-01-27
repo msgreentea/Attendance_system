@@ -15,8 +15,8 @@ class CreateBreaktimesTable extends Migration
     {
         Schema::create('breaktimes', function (Blueprint $table) {
             $table->id();
-            $table->id('user_id');
-            $table->date();
+            $table->id('attendances_id')->unsigned()->after('attendances');
+            $table->foreign('attendances_id')->references('attendances_id')->on('id')->onDelete('cascade');
             $table->time('start_time');
             $table->time('end_time')->nullable();
             $table->timestamp('created_at')->nullable();
@@ -31,6 +31,9 @@ class CreateBreaktimesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('breaktimes');
+        // Schema::dropIfExists('breaktimes');
+        Schema::dropIfExists('breaktimes', function (Blueprint $table) {
+            $table->dropForeign('breaktimes_attendances_id_foreign');
+        });
     }
 }

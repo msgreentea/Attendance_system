@@ -15,7 +15,6 @@
             <li class="header-list bold"><a href="{{ route('stamp.index') }}">ホーム</a></li>
             <li class="header-list bold"><a href="{{ route('attendance.index') }}">日付一覧</a></li>
             <li class="header-list bold"><a href="{{ route('auth.show') }}">ログアウト</a></li>
-            {{-- <li class="header-list bold"><a href="{{ route('login') }}">ログアウト</a></li> --}}
         </ul>
     </nav>
 @endsection

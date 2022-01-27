@@ -15,7 +15,13 @@ class CreateAttendancesTable extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->id('user_id')->unsigned()->after('users');
+            $table->foreign('user_id')->references('users_id')->on('id')->onDelete('cascade');
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time')->nullable();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
@@ -26,6 +32,8 @@ class CreateAttendancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('attendances', function (Blueprint $table) {
+            $table->dropforeign('attendance_user_id_foreign');
+        });
     }
 }
