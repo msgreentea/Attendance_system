@@ -10,6 +10,10 @@ use App\Http\Controllers\UserController;
 
 // 打刻ページ
 Route::get('/', [StampController::class, 'index'])->name('stamp.index');
+// Route::get('/', function() {
+//     return view('stamp.index');
+// })->middleware(['auth'])->name('stamp.index');
+
 Route::post('/punchin', [StampController::class, 'punchin'])->name('punchin');
 Route::post('/punchout', [StampController::class, 'punchout'])->name('punchout');
 Route::post('/breakin', [StampController::class, 'breakin'])->name('breakin');

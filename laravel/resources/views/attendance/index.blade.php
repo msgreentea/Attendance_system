@@ -21,7 +21,7 @@
 
 
 @section('content')
-    <h2 class="sec-title center">ナビゲーション</h2>
+    <h2 class="sec-title center">日付</h2>
     <table>
         <tr>
             <th>名前</th>

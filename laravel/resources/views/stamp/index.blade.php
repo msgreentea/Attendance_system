@@ -21,21 +21,21 @@
 
 
 @section('content')
-    <h2 class="sec-title center">{福場凜太郎さん}お疲れ様です！</h2>
+        <h2 class="sec-title center">{{ $user }}さんお疲れ様です！</h2>
     <div class="contents">
-        <form action="">
+        <form action="{{ route('punchin') }}" method="POST">
         @csrf
             <button class="content bold">勤務開始</button>
         </form>
-        <form action="">
+        <form action="{{ route('punchout') }}" method="POST">
         @csrf
             <button class="content bold">勤務終了</button>
         </form>
-        <form action="">
+        <form action="{{ route('breakin') }}" method="POST">
         @csrf
             <button class="content bold">休憩開始</button>
         </form>
-        <form action="">
+        <form action="{{ route('breakout') }}" method="POST">
         @csrf
             <button class="content bold">休憩終了</button>
         </form>
