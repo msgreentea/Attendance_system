@@ -15,8 +15,9 @@ class CreateAttendancesTable extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->id('user_id')->unsigned()->after('users');
-            $table->foreign('user_id')->references('users_id')->on('id')->onDelete('cascade');
+            $table->integer('user_id')->unsigned();
+            // 外部キーの設定
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time')->nullable();
@@ -30,10 +31,9 @@ class CreateAttendancesTable extends Migration
      *
      * @return void
      */
+    // 一度作成したものを取り消す時に使う（ロールバック）
     public function down()
     {
-        Schema::dropIfExists('attendances', function (Blueprint $table) {
-            $table->dropforeign('attendance_user_id_foreign');
-        });
+        Schema::dropIfExists('attendances');
     }
 }

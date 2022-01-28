@@ -10,9 +10,6 @@ use App\Http\Controllers\UserController;
 
 // 打刻ページ
 Route::get('/', [StampController::class, 'index'])->middleware("auth")->name('stamp.index');
-// Route::get('/', function() {
-//     return view('stamp.index');
-// })->middleware(['auth'])->name('stamp.index');
 
 Route::post('/punchin', [StampController::class, 'punchin'])->middleware("auth")->name('punchin');
 Route::post('/punchout', [StampController::class, 'punchout'])->middleware("auth")->name('punchout');
@@ -30,13 +27,3 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware("auth")->n
 
 // 日付別勤怠ページ
 Route::get('/attendance', [AttendanceController::class, 'index'])->middleware("auth")->name('attendance.index');
-
-
-
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-require __DIR__ . '/auth.php';
