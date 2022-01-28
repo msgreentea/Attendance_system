@@ -21,7 +21,7 @@
 
 
 @section('content')
-    <h2 class="sec-title center">日付</h2>
+    <h2 class="sec-title center">{{  }}</h2>
     <table>
         <tr>
             <th>名前</th>
@@ -31,11 +31,11 @@
             <th>勤務時間</th>
         </tr>
         <tr>
-            <td>{名前}</td>
-            <td>時間</td>
-            <td>時間</td>
-            <td>時間</td>
-            <td>時間</td>
+            <td>{{ $attendance->name }}</td>
+            <td>{{ $attendance->start_time }}</td>
+            <td>{{ $attendance->end_time }}</td>
+            <td>{{ $attendance->start_time }}</td>
+            <td>{{ $attendance->end_time }}</td>
         </tr>
     </table>
     <p class="center">ページネーション</p>

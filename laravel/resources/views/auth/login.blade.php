@@ -13,8 +13,8 @@
 @section('content')
     <h2 class="sec-title center">ログイン</h2>
     <form action="post" class="column">
-        <input type="text" name="email" placeholder="メールアドレス" value="{{ 'email' }}">
-        <input type="text" name="password" placeholder="パスワード" value="{{ 'password' }}">
+        <input type="text" name="email" placeholder="メールアドレス" value="">
+        <input type="text" name="password" placeholder="パスワード" value="">
         <button>ログイン</button>
     </form>
     <p class="gray center">アカウントをお持ちでない方はこちらから</p>

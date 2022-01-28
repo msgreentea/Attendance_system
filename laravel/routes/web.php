@@ -9,29 +9,29 @@ use App\Http\Controllers\UserController;
 
 
 // 打刻ページ
-Route::get('/', [StampController::class, 'index'])->name('stamp.index');
+Route::get('/', [StampController::class, 'index'])->middleware("auth")->name('stamp.index');
 // Route::get('/', function() {
 //     return view('stamp.index');
 // })->middleware(['auth'])->name('stamp.index');
 
-Route::post('/punchin', [StampController::class, 'punchin'])->name('punchin');
-Route::post('/punchout', [StampController::class, 'punchout'])->name('punchout');
-Route::post('/breakin', [StampController::class, 'breakin'])->name('breakin');
-Route::post('/breakout', [StampController::class, 'breakout'])->name('breakout');
-
-// 日付別勤怠ページ
-Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
-
-// ログインページ
-Route::get('/login', [AuthController::class, 'show'])->name('auth.show');
+Route::post('/punchin', [StampController::class, 'punchin'])->middleware("auth")->name('punchin');
+Route::post('/punchout', [StampController::class, 'punchout'])->middleware("auth")->name('punchout');
+Route::post('/breakin', [StampController::class, 'breakin'])->middleware("auth")->name('breakin');
+Route::post('/breakout', [StampController::class, 'breakout'])->middleware("auth")->name('breakout');
 
 // 会員登録ページ
 Route::get('/register', [UserController::class, 'create'])->name('register.create');
+Route::post('/register', [UserController::class, 'store'])->name('register.store');
+
+// ログインページ
+Route::get('/login', [AuthController::class, 'show'])->name('auth.show');
+Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware("auth")->name('auth.logout');
+
+// 日付別勤怠ページ
+Route::get('/attendance', [AttendanceController::class, 'index'])->middleware("auth")->name('attendance.index');
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 
 
