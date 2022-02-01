@@ -19,6 +19,7 @@
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
+            {{ session('login_error') }}
         </div>
     @endif
     <form action="{{ route('auth.login') }}" method="POST" class="column">

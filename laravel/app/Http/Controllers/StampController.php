@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Attendances;
-use App\Models\Breaktimes;
+use App\Models\Attendance;
+use App\Models\Breaktime;
 use Carbon\Carbon;
 
 
