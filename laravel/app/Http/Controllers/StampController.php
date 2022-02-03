@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attendance;
 use App\Models\Breaktime;
+use App\Models\User;
 use Carbon\Carbon;
 
 
@@ -14,16 +15,16 @@ class StampController extends Controller
     public function index()
     {
         // 現在認証しているユーザーを取得
-        if (Auth::check()) {
-            return view('stamp.index');
-        } else {
-            return view('auth.login');
-        }
+        // if (Auth::check()) {
+        //     return view('stamp.index');
+        // } else {
+        //     return view('auth.login');
+        // }
 
         $user = Auth::getUser();
-        $items = User::peginate(5);
+        // $items = User::peginate(5);
         $param = [
-            'items' => $items,
+            // 'items' => $items,
             'user' => $user
         ];
         return view('stamp.index', $param);

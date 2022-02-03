@@ -21,7 +21,8 @@
 
 
 @section('content')
-        <h2 class="sec-title center">{{ Auth::user()->name }}さんお疲れ様です！</h2>
+        {{-- <h2 class="sec-title center">{{ Auth::user()->name }}さんお疲れ様です！</h2> --}}
+        <h2 class="sec-title center">{{ $user->name }}さんお疲れ様です！</h2>
     <div class="contents">
         <form action="{{ route('punchin') }}" method="POST">
         @csrf

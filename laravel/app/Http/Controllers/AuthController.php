@@ -27,25 +27,26 @@ class AuthController extends Controller
         //     'password' => 'required|min:8'
         // ]);
 
-        if (Auth::attempt(['email' => $loginRequest->input('email'), 'password' => $loginRequest->input('password')])) {
-            return redirect()->route('stamp.index');
-        }
-        return redirect()->back();
-
-
-
-
-        // $credentials = $loginRequest->only('email', 'password');
-
-        // if (Auth::attempt($credentials)) {
-        //     $loginRequest->session()->regenerate();
-
-        //     return redirect()->intended('stamp.index');
+        // if (Auth::attempt(['email' => $loginRequest->input('email'), 'password' => $loginRequest->input('password')])) {
+        //     return redirect()->route('stamp.index');
         // }
+        // return redirect()->back();
 
-        // return back()->withErrors([
-        //     'login_error' => 'メールアドレスかパスワードが間違っています。',
-        // ]);
+
+
+
+        $credentials = $loginRequest->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $loginRequest->session()->regenerate();
+
+            // return redirect()->intended('stamp.index');
+            return redirect('stamp.index');
+        }
+
+        return back()->withErrors([
+            'login_error' => 'メールアドレスかパスワードが間違っています。',
+        ]);
     }
 
     public function logout()
