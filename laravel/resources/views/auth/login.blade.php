@@ -13,7 +13,7 @@
 @section('content')
     <h2 class="sec-title center">ログイン</h2>
     @if ($errors->any())
-        <div class="alert alert-danger">
+        <div class="center red">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -21,6 +21,10 @@
             </ul>
             {{ session('login_error') }}
         </div>
+    @endif
+
+    @if (session('login_error'))
+        <div>{{ session('login_error') }}</div>
     @endif
     <form action="{{ route('auth.login') }}" method="POST" class="column">
         @csrf

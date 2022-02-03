@@ -14,9 +14,19 @@ class StampController extends Controller
     public function index()
     {
         // 現在認証しているユーザーを取得
-        // $user = auth()->user();
+        if (Auth::check()) {
+            return view('stamp.index');
+        } else {
+            return view('auth.login');
+        }
+
         $user = Auth::getUser();
-        return view('stamp.index', $user);
+        $items = User::peginate(5);
+        $param = [
+            'items' => $items,
+            'user' => $user
+        ];
+        return view('stamp.index', $param);
     }
 
     // 勤務開始

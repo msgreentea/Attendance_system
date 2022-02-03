@@ -25,7 +25,9 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $loginRequest->session()->regenerate();
-            return redirect('stamp.index')->with('login_success', 'ログイン成功しました！');
+
+            // return redirect('stamp.index');
+            return view('stamp.index');
         }
 
         return back()->withErrors([

@@ -11,7 +11,8 @@
 
 @section('content')
     <h2 class="sec-title center">会員登録</h2>
-    <form action="post" class="column">
+    <form action="{{ route('register.store') }}" method="POST" class="column">
+        @csrf
         <input type="text" name="name" placeholder="名前" value="">
         <input type="text" name="email" placeholder="メールアドレス" value="">
         <input type="text" name="password" placeholder="パスワード" value="">
