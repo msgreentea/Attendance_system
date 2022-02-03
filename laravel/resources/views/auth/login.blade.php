@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-
+    ログイン
 @endsection
 
 
@@ -14,7 +14,7 @@
     <h2 class="sec-title center">ログイン</h2>
     @if ($errors->any())
         <div class="center red">
-            <ul>
+            <ul class="">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
