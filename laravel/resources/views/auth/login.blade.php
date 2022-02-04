@@ -12,24 +12,21 @@
 
 @section('content')
     <h2 class="sec-title center">ログイン</h2>
-    @if ($errors->any())
-        <div class="center red">
-            <ul class="">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            {{ session('login_error') }}
-        </div>
-    @endif
-
-    @if (session('login_error'))
-        <div>{{ session('login_error') }}</div>
-    @endif
     <form action="{{ route('auth.login') }}" method="POST" class="column">
         @csrf
-        <input type="text" name="email" placeholder="メールアドレス" value="">
-        <input type="text" name="password" placeholder="パスワード" value="">
+        {{-- @if (session('logout'))
+            <p>{{ session('lotout') }}</p>
+        @endif --}}
+        {{-- メール --}}
+        @error('email')
+            <p class="red">{{ $message }}</p>
+        @enderror
+        <input type="text" name="email" placeholder="メールアドレス" value="{{ old('email') }}">
+        {{-- パスワード --}}
+        @error('password')
+            <p class="red">{{ $message }}</p>
+        @enderror
+        <input type="password" name="password" placeholder="パスワード">
         <button>ログイン</button>
     </form>
     <p class="gray center">アカウントをお持ちでない方はこちらから</p>

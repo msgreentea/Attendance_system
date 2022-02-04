@@ -9,8 +9,7 @@ use App\Http\Controllers\UserController;
 
 
 // 打刻ページ
-// Route::get('/', [StampController::class, 'index'])->middleware("auth")->name('stamp.index');
-Route::get('/', [StampController::class, 'index'])->name('stamp.index');
+Route::get('/', [StampController::class, 'index'])->middleware("auth")->name('stamp.index');
 
 Route::post('/punchin', [StampController::class, 'punchin'])->middleware("auth")->name('punchin');
 Route::post('/punchout', [StampController::class, 'punchout'])->middleware("auth")->name('punchout');

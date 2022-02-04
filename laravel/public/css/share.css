@@ -34,6 +34,10 @@ header {
 }
 ul {
     display: flex;
+    width: 100%;
+}
+li {
+    width: 100%;
 }
 .header-ul {
     display: flex;
@@ -62,5 +66,5 @@ footer {
     padding-bottom: 30px;
 }
 .red {
-    color: red;
+    color: #b22222;
 }

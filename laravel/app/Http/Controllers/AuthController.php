@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Providers\RouteServiceProvider;
 
 class AuthController extends Controller
 {
@@ -18,38 +17,36 @@ class AuthController extends Controller
     }
 
     /**
-     * @param App\Http\Requests\LoginRequest $loginRequest
+     * @param App\Http\Requests\LoginRequest $request
      */
-    public function login(LoginRequest $loginRequest)
+    public function login(LoginRequest $request)
     {
-        // $this->validate($loginRequest, [
+        // よくわからない
+        // $credentials = $request->validate($request, [
         //     'email' => 'email|required',
-        //     'password' => 'required|min:8'
+        //     'password' => 'required'
         // ]);
 
-        // if (Auth::attempt(['email' => $loginRequest->input('email'), 'password' => $loginRequest->input('password')])) {
-        //     return redirect()->route('stamp.index');
-        // }
-        // return redirect()->back();
-
-
-
-
-        $credentials = $loginRequest->only('email', 'password');
+        $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            $loginRequest->session()->regenerate();
-
-            // return redirect()->intended('stamp.index');
-            return redirect('stamp.index');
+            $request->session()->regenerate();
+            return redirect()->intended('stamp.index');
+            // return redirect()->route('stamp.index');
         }
-
         return back()->withErrors([
-            'login_error' => 'メールアドレスかパスワードが間違っています。',
+            'email' => 'メールアドレスかパスワードが間違っています。',
         ]);
     }
 
-    public function logout()
+    public function logout(LoginRequest $request)
     {
+        Auth::logout();
+
+        return redirect('auth.show');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('auth.show');
+        // return redirect()->route('auth.show')->with('logout', 'ログアウトしました');
     }
 }

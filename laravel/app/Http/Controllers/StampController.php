@@ -21,13 +21,14 @@ class StampController extends Controller
         //     return view('auth.login');
         // }
 
-        $user = Auth::getUser();
+        // $user = Auth::getUser();
         // $items = User::peginate(5);
-        $param = [
-            // 'items' => $items,
-            'user' => $user
-        ];
-        return view('stamp.index', $param);
+        // $param = [
+        //     // 'items' => $items,
+        //     'user' => $user
+        // ];
+        // return view('stamp.index', $param);
+        return view('stamp.index');
     }
 
     // 勤務開始
