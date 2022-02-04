@@ -31,21 +31,22 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('stamp.index');
-            // return redirect()->route('stamp.index');
+            // return redirect()->intended('stamp.index');
+            return redirect()->route('stamp.index');
+            // return redirect(route('stamp.index'));
         }
         return back()->withErrors([
             'email' => 'メールアドレスかパスワードが間違っています。',
         ]);
     }
 
-    public function logout(LoginRequest $request)
+    public function logout(Request $request)
     {
         Auth::logout();
 
-        return redirect('auth.show');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        // return redirect(route('auth.show'));
         return redirect()->route('auth.show');
         // return redirect()->route('auth.show')->with('logout', 'ログアウトしました');
     }

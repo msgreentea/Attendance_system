@@ -14,9 +14,9 @@
         <ul class="header-ul">
             <li class="header-list bold"><a href="{{ route('stamp.index') }}">ホーム</a></li>
             <li class="header-list bold"><a href="{{ route('attendance.index') }}">日付一覧</a></li>
-            <li class="header-list bold"><a href="">ログアウト</a></li>
             <form action="{{ route('auth.logout') }}" method="POST">
                 @csrf
+                <li class="header-list bold"><input type="submit" value="ログアウト"></li>
             </form>
         </ul>
     </nav>
