@@ -24,6 +24,7 @@ Route::post('/register', [UserController::class, 'store'])->name('register.store
 Route::get('/login', [AuthController::class, 'show'])->name('auth.show');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware("auth")->name('auth.logout');
+Route::get('/logout', [AuthController::class, 'logout'])->middleware("auth")->name('auth.logout');
 
 // 日付別勤怠ページ
 Route::get('/attendance', [AttendanceController::class, 'index'])->middleware("auth")->name('attendance.index');

@@ -14,13 +14,13 @@ class StampController extends Controller
 {
     public function index()
     {
-        var_dump(route('stamp.index'));
+        // var_dump(route('stamp.index'));
         // 現在認証しているユーザーを取得
-        // if (Auth::check()) {
-        //     return view('stamp.index');
-        // } else {
-        //     return view('auth.login');
-        // }
+        if (Auth::check()) {
+            return view('stamp.index');
+        } else {
+            return view('auth.login');
+        }
 
         // $user = Auth::getUser();
         // $items = User::peginate(5);

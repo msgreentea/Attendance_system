@@ -3,11 +3,11 @@
 }
 body {
     height: 100vh;
-    display: grid;
-    grid-template:
+    /* display: grid; */
+    /* grid-template:
         "header" 10%
         "main" 85%
-        "footer" 5%;
+        "footer" 5%; */
 }
 ul,
 li,
@@ -24,6 +24,7 @@ a {
 }
 
 header {
+    height: 75px;
     grid-area: header;
     display: flex;
     /* padding: 80px 80px 30px 80px; */
@@ -34,11 +35,8 @@ header {
 }
 ul {
     display: flex;
-    width: 100%;
 }
-li {
-    width: 100%;
-}
+
 .header-ul {
     display: flex;
 }
@@ -47,12 +45,14 @@ li {
     font-weight: bold;
 }
 main {
+    height: 100%;
+    height: 665px;
     grid-area: main;
     background-color: #f2f2f2;
-    height: 100%;
     padding: 60px 10%;
 }
 footer {
+    height: 30px;
     grid-area: footer;
     text-align: center;
     padding-top: 10px;

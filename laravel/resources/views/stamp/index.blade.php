@@ -14,10 +14,12 @@
         <ul class="header-ul">
             <li class="header-list bold"><a href="{{ route('stamp.index') }}">ホーム</a></li>
             <li class="header-list bold"><a href="{{ route('attendance.index') }}">日付一覧</a></li>
-            <form action="{{ route('auth.logout') }}" method="POST">
+            <li class="header-list bold"><a href="{{ route('auth.logout') }}">ログアウト</a></li>
+            {{-- methodをpostにした場合 --}}
+            {{-- <form action="{{ route('auth.logout') }}" method="POST">
                 @csrf
                 <li class="header-list bold"><input type="submit" value="ログアウト"></li>
-            </form>
+            </form> --}}
         </ul>
     </nav>
 @endsection

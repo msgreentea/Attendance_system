@@ -3,12 +3,13 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 }
 .content {
     background-color: white;
     padding: 80px;
     width: 100%;
-    margin: 0 30px 30px 0;
+    margin-bottom: 30px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
