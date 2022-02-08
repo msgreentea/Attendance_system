@@ -27,8 +27,8 @@
 
 @section('content')
         <h2 class="sec-title center">{{ Auth::user()->name }}さんお疲れ様です！</h2>
-         @if (session('punchin'))
-            <p class="red center">{{ session('punchin') }}</p>
+         @if (session('text'))
+            <p class="red center">{{ session('text') }}</p>
         @endif
     <div class="contents">
         <form action="{{ route('punchin') }}" method="POST">
@@ -37,7 +37,7 @@
             <button class="content bold">勤務開始</button>
         </form>
         <form action="{{ route('punchout') }}" method="POST">
-        @csrf
+            @csrf
             <button class="content bold">勤務終了</button>
         </form>
         <form action="{{ route('breakin') }}" method="POST">

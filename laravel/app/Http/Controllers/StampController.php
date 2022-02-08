@@ -29,7 +29,7 @@ class StampController extends Controller
         $date = Carbon::today()->format('Y-m-d');
         $start_time = Carbon::now()->format('H:i:s');
 
-        if ($start_time != null) {
+        if ($start_time == null) {
             $punchin = Attendance::create([
                 'user_id' => $user_id,
                 'date' => $date,
@@ -38,13 +38,25 @@ class StampController extends Controller
         }
 
 
-        return redirect()->route('stamp.index')->with('punchin', '出勤！今日も頑張りましょう。');
+        return redirect()->route('stamp.index')->with('text', '出勤！今日も頑張りましょう。');
     }
 
     // 勤務終了
-    public function puchout(Request $request)
+    public function punchout(Request $request)
     {
+
+        $user_id = Attendance::user_id;
+        dd($request->user_id);
+        $start_time = Carbon::now()->format('H:i:s');
         $end_time = Carbon::now()->format('H:i:s');
+
+        if ($start_time != null) {
+            // Attendance::where('user_id', Attendance::id)->update($end_time);
+            Attendance::where('user_id', Attendance::id)->update($end_time);
+            // $end_time = Carbon::now()->format('H:i:s');
+        }
+
+        return redirect()->route('stamp.index')->with('text', '退勤！お疲れ様でした。');
     }
 
 
