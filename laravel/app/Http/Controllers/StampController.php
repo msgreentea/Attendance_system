@@ -16,6 +16,9 @@ class StampController extends Controller
     {
         $user = Auth::user();
 
+        // ボタンが押せなくなる機能
+
+
         return view('stamp.index', $user);
     }
 
