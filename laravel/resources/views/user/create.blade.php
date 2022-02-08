@@ -20,7 +20,7 @@
         @error('email')
             <p class="red">{{ $message }}</p>
         @enderror
-        <input type="text" name="email" placeholder="メールアドレス" value="{{ old('email') }}">
+        <input type="email" name="email" placeholder="メールアドレス" value="{{ old('email') }}">
         @error('password')
             <p class="red">{{ $message }}</p>
         @enderror

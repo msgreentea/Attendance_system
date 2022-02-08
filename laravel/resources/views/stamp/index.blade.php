@@ -27,9 +27,13 @@
 
 @section('content')
         <h2 class="sec-title center">{{ Auth::user()->name }}さんお疲れ様です！</h2>
+         @if (session('punchin'))
+            <p class="red center">{{ session('punchin') }}</p>
+        @endif
     <div class="contents">
         <form action="{{ route('punchin') }}" method="POST">
         @csrf
+            <input type="hidden" name="id" value="id">
             <button class="content bold">勤務開始</button>
         </form>
         <form action="{{ route('punchout') }}" method="POST">

@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <h1 class="title">Atte</h1>
+        <h1 class="title"><a href="{{ route('stamp.index') }}">Atte</a></h1>
         @yield('nav')
     </header>
     <main>

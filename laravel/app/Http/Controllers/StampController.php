@@ -4,57 +4,44 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\Models\Attendance;
 use App\Models\Breaktime;
 use App\Models\User;
-use Carbon\Carbon;
-
+use Attribute;
 
 class StampController extends Controller
 {
     public function index()
     {
-        // var_dump(route('stamp.index'));
-        // 現在認証しているユーザーを取得
-        if (Auth::check()) {
-            return view('stamp.index');
-        } else {
-            return view('auth.login');
-        }
+        $user = Auth::user();
 
-        // $user = Auth::getUser();
-        // $items = User::peginate(5);
-        // $param = [
-        //     // 'items' => $items,
-        //     'user' => $user
-        // ];
-        // return view('stamp.index', $param);
-        return view('stamp.index');
+        return view('stamp.index', $user);
     }
 
     // 勤務開始
     public function punchin(Request $request)
     {
-        $time = Carbon::now();
+        $user_id = Auth::id();
+        $date = Carbon::today()->format('Y-m-d');
+        $start_time = Carbon::now()->format('H:i:s');
 
-        $id = $request->id;
-        $user_id = $request->user_id;
-        $date = $time->today();
-        $start_time = $time->hour . $time->minute;
+        if ($start_time != null) {
+            $punchin = Attendance::create([
+                'user_id' => $user_id,
+                'date' => $date,
+                'start_time' => $start_time
+            ]);
+        }
 
-        $punchin = Attendances::create([
-            'id' => $id,
-            'user_id' => $user_id,
-            'date' => $date,
-            'start_time' => $start_time,
-        ]);
 
-        return redirect('stamp.index');
+        return redirect()->route('stamp.index')->with('punchin', '出勤！今日も頑張りましょう。');
     }
 
     // 勤務終了
     public function puchout(Request $request)
     {
+        $end_time = Carbon::now()->format('H:i:s');
     }
 
 
