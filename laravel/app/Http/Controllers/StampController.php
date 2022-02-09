@@ -16,7 +16,7 @@ class StampController extends Controller
     {
         $user = Auth::user();
 
-        // ボタンが押せなくなる機能
+        // ボタンが押せなくなる機能？ / htmlにif組み込む？
 
 
         return view('stamp.index', $user);
@@ -27,7 +27,16 @@ class StampController extends Controller
     {
         $user_id = Auth::id();
         $date = Carbon::today()->format('Y-m-d');
-        $start_time = Carbon::now()->format('H:i:s');
+        // $start_time = Carbon::now()->format('H:i:s');
+        $start_time = Attendance::where('user_id', $user_id)->where('date', $date);
+
+        // // 1日１回
+        // $oldTimestamp = Attendance::where('user_id', $user->id)->latest()->first();
+        // if ($oldTimestamp) {
+        //     $oldTimestampStart = new Carbon($oldTimestamp->begin_time);
+
+        //     $oldTimestampDay = $oldTimestampStart->startOfDay();
+        // }
 
         if ($start_time == null) {
             $punchin = Attendance::create([
@@ -35,24 +44,25 @@ class StampController extends Controller
                 'date' => $date,
                 'start_time' => $start_time
             ]);
+            return redirect()->route('stamp.index')->with('text', '出勤！今日も頑張りましょう。');
+            // }
+        } else {
+            return redirect()->route('stamp.index')->with('text', 'すでに勤務しています');
         }
-
-
-        return redirect()->route('stamp.index')->with('text', '出勤！今日も頑張りましょう。');
     }
 
     // 勤務終了
     public function punchout(Request $request)
     {
 
-        $user_id = Attendance::user_id;
+        $user_id = Auth::id();
         dd($request->user_id);
         $start_time = Carbon::now()->format('H:i:s');
         $end_time = Carbon::now()->format('H:i:s');
 
         if ($start_time != null) {
             // Attendance::where('user_id', Attendance::id)->update($end_time);
-            Attendance::where('user_id', Attendance::id)->update($end_time);
+            // Attendance::where('user_id', $user_id)->where('date', Carbon::now()->format('Y-m-d')->first())update($end_time);
             // $end_time = Carbon::now()->format('H:i:s');
         }
 

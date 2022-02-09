@@ -21,18 +21,13 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        // よくわからない
-        // $credentials = $request->validate($request, [
-        //     'email' => 'email|required',
-        //     'password' => 'required'
-        // ]);
 
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            // return redirect()->intended('stamp.index');
             return redirect()->route('stamp.index');
+            // return redirect()->intended('stamp.index');
             // return redirect(route('stamp.index'));
         }
         return back()->withErrors([
