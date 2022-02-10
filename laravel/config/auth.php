@@ -71,12 +71,13 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
+            // ログイン時に使うテーブルを指定
             'model' => App\Models\User::class,
         ],
-        'User' => [
-            'driver' => 'session',
-            'provider' => 'User',
-        ],
+        // 'User' => [
+        //     'driver' => 'session',
+        //     'provider' => 'User',
+        // ],
 
         // 'users' => [
         //     'driver' => 'database',
