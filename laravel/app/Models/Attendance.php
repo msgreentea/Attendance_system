@@ -15,4 +15,16 @@ class Attendance extends Model
         'start_time',
         'end_time'
     ];
+
+    // (主）Userモデルへの紐付け
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    //（従）Breaktimeモデルへの紐づけ
+    public function breaktime()
+    {
+        return $this->hasMany('App\Models\Breaktime');
+    }
 }
