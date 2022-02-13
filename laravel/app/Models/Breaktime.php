@@ -9,7 +9,7 @@ class Breaktime extends Model
 {
     use HasFactory;
 
-    protected $fillale = [
+    protected $fillable = [
         'attendances_id',
         'start_time',
         'end_time'

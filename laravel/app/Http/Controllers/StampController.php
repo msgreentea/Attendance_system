@@ -14,7 +14,6 @@ class StampController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // compact('user');
 
         return view('stamp.index', ['user' => $user]);
     }
@@ -24,14 +23,10 @@ class StampController extends Controller
     {
         $user_id = Auth::id();
 
-        // $user = User::find($user_id);
-
-
         $today = Carbon::today()->format('Y-m-d');
         $start_time = Carbon::now()->format('H:i:s');
         // 最後に出勤処理をしたデータ
         $old_punchin = Attendance::where('user_id', $user_id)->where('date', $today)->first();
-
 
         // 1日1回
         if ($old_punchin == null) {
@@ -40,9 +35,11 @@ class StampController extends Controller
                 'date' => $today,
                 'start_time' => $start_time
             ]);
-            return redirect()->route('stamp.index')->with('text', '出勤！今日も頑張りましょう。');
+            return redirect()->route('stamp.index')->with('text', '出勤！本日も頑張りましょう。');
+        } elseif ($old_punchin->end_time != null) {
+            return redirect()->route('stamp.index')->with('text', '本日は既に退勤処理済みです。');
         } else {
-            return redirect()->route('stamp.index')->with('text', 'すでに勤務しています。');
+            return redirect()->route('stamp.index')->with('text', '勤務中です。');
         }
     }
 
@@ -52,14 +49,15 @@ class StampController extends Controller
         $user_id = Auth::id();
         $today = Carbon::today()->format('Y-m-d');
         $attendance = Attendance::where('user_id', $user_id)->where('date', $today)->first();
-        $end_time = $attendance->end_time;
-
+        $breaktime = Breaktime::where('attendances_id', $user_id)->first();
 
         // 既に出勤処理済み & （退勤処理がされていない）
         if ($attendance == null) {
             return redirect()->route('stamp.index')->with('text', '出勤処理をしていません。');
-        } elseif ($end_time != null) {
+        } elseif ($attendance->end_time != null) {
             return redirect()->route('stamp.index')->with('text', '既に退勤しています。');
+        } elseif ($breaktime != null && $breaktime->end_time == null) {
+            return redirect()->route('stamp.index')->with('text', '休憩終了処理をしていません。');
         } else {
             $now = Carbon::now()->format('H:i:s');
 
@@ -75,39 +73,55 @@ class StampController extends Controller
     public function breakin(Request $request)
     {
         $user = Auth::id();
-
-        $attendance = Attendance::where('user_id', $user)->first();
-
-        // ★Attendanceテーブルのstart_timeの検索？の仕方がわからない
-        $punchin_start_time = Attendance::where('user_id', $attendance->user_id)->where('start_time', $items->start_time)->first();
-        dd($punchin_start_time);
-
-        $punchin = Attendance::where('user_id', $user)->where('start_time')->first();
-        dd($punchin);
-        $start_time = Breaktime::where('attendances_id', $attendances_id)->first();
-
+        $today = Carbon::today()->format('Y-m-d');
+        $attendance = Attendance::where('user_id', $user)->where('date', $today)->first();
+        $breaktime = Breaktime::where('attendances_id', $user)->first();
 
         // 無理パターン：　
         // 出勤がされていない時
         // 既に休憩開始されている時
         // 退勤済みの時
-
         // ↓
         // 以外の時に休憩打刻可能
-
-        if ($punchin != null) {
-            Attendance::create([
-                'user_id' => $user_id,
-                'start_time' => $start_time
-            ]);
-            return redirect()->route('stamp.index')->with('text', '出勤！今日も頑張りましょう。');
+        if ($attendance == null) {
+            return redirect()->route('stamp.index')->with('text', '出勤処理をしていません。');
+        } elseif ($attendance->end_time != null) {
+            return redirect()->route('stamp.index')->with('text', '既に退勤しています。');
+        } elseif ($breaktime != null && $breaktime->end_time == null) {
+            return redirect()->route('stamp.index')->with('text', '休憩中です。');
         } else {
-            return redirect()->route('stamp.index')->with('text', 'すでに勤務しています。');
+            $now = Carbon::now()->format('H:i:s');
+
+            Breaktime::create([
+                'attendances_id' => $user,
+                'start_time' => $now,
+            ]);
+            return redirect()->route('stamp.index')->with('text', '休憩開始 ☺︎');
         }
     }
 
     // 休憩終了
     public function breakout(Request $request)
     {
+        $user = Auth::id();
+        $today = Carbon::today()->format('Y-m-d');
+        $attendance = Attendance::where('user_id', $user)->where('date', $today)->first();
+        $breaktime = Breaktime::where('attendances_id', $user)->first();
+
+
+        if ($attendance == null) {
+            return redirect()->route('stamp.index')->with('text', '出勤処理をしていません。');
+        } elseif ($attendance->end_time != null) {
+            return redirect()->route('stamp.index')->with('text', '既に退勤しています。');
+        } elseif ($breaktime == null) {
+            return redirect()->route('stamp.index')->with('text', '休憩開始処理をしていません。');
+        } else {
+            $now = Carbon::now()->format('H:i:s');
+
+            Breaktime::where('attendances_id', $user)->update([
+                'end_time' => $now
+            ]);
+            return redirect()->route('stamp.index')->with('text', '休憩終了！引き続き頑張りましょう。');
+        }
     }
 }
