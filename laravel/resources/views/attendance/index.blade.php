@@ -25,7 +25,7 @@
 
 @section('content')
     {{-- <h2 class="sec-title center">{{  }}</h2> --}}
-    <h2 class="sec-title center">{{ $attendance->date }}</h2>
+    <h2 class="sec-title center">{{ $all_records->today }}</h2>
     <table>
         <tr>
             <th>名前</th>
