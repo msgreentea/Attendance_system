@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Attendance;
 use Illuminate\Http\Request;
+use App\Models\Attendance;
+use App\Models\Breaktime;
+use App\Models\User;
 
 class AttendanceController extends Controller
 {
     public function index()
     {
         $attendance = Attendance::all();
-        $paginate = Attendance::paginate(5);
-        return view('attendance.index', compact('attendance', 'paginate'));
+        dd($attendance);
+
+        return view('attendance.index', compact('attendance'));
     }
 }
