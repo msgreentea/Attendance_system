@@ -7,13 +7,15 @@ use App\Models\Attendance;
 use App\Models\Breaktime;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $attendance = Attendance::all();
-        dd($attendance->date);
+        $user_id = Auth::id();
+        $attendance = Attendance::where('user_id', $user_id)->first();
+        dd($attendance);
         $breaktime = Breaktime::all();
 
         $date = $attendance->date;

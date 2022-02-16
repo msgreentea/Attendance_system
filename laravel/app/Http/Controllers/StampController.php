@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Attendance;
 use App\Models\Breaktime;
-use App\Models\User;
 
 class StampController extends Controller
 {
