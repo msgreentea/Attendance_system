@@ -28,6 +28,7 @@ class AttendanceController extends Controller
         $attendance = Attendance::where('user_id', $id)->where('date', $date)->latest()->first();
         $breaktime = Breaktime::where('attendances_id', $id)->first();
         // dd($breaktime);
+        //  ↓　これがおかしい
         dd($breaktime->end_time - $breaktime->start_time);
         $breaktime_total = $breaktime->end_time - $breaktime->start_time;
         dd($breaktime->end_time - $breaktime->start_time);
