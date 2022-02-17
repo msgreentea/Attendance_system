@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('/css/date.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/attendance.css') }}">
 @endsection
 
 @section('title')
@@ -24,8 +24,21 @@
 
 
 @section('content')
-    {{-- <h2 class="sec-title center">{{  }}</h2> --}}
-    <h2 class="sec-title center">{{ $all_records->date }}</h2>
+
+    <h2 class="sec-title center">
+        <form action="" method="">
+            @csrf
+            <input type="hidden" name="">
+            <button> < </button>
+        </form>
+        {{  $attendance->date  }}
+        <form action="" method="">
+            @csrf
+            <input type="hidden" name="">
+            <button> > </button>
+        </form>
+    </h2>
+
     <table>
         <tr>
             <th>名前</th>
@@ -34,13 +47,16 @@
             <th>休憩時間</th>
             <th>勤務時間</th>
         </tr>
+        @foreach ($attendance as $item)
         <tr>
-            <td>{{ $attendance->name }}</td>
-            <td>{{ $attendance->start_time }}</td>
-            <td>{{ $attendance->end_time }}</td>
-            <td>{{ $attendance->start_time }}</td>
-            <td>{{ $attendance->end_time }}</td>
+            {{-- <td>{{ $all_records->name }}</td>
+            <td>{{ $all_records->start_time }}</td>
+            <td>{{ $all_records->end_time }}</td>
+            <td>{{ $all_records->breaktime_total }}</td>
+            <td>{{ $all_records->working_hours }}</td> --}}
         </tr>
+        {{-- @endforeach --}}
     </table>
     <p class="center">ページネーション</p>
+
 @endsection

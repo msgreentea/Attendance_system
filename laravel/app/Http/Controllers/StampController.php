@@ -63,7 +63,7 @@ class StampController extends Controller
             Attendance::where('user_id', $user_id)->update([
                 'end_time' => $now
             ]);
-            return redirect()->route('stamp.index')->with('text', '退勤！お疲れ様でした。');
+            return redirect()->route('stamp.index')->with('text', '退勤！お疲れ様でした ☺︎');
         }
     }
 

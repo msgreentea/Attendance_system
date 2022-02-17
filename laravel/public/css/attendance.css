@@ -10,3 +10,13 @@ tr {
     /* line-height: 60px; */
     border-top: 1px solid #aaa;
 }
+.sec-title {
+    display: flex;
+    font-size: 20px;
+    /* font-weight: normal; */
+}
+.sec-title form button {
+    background-color: white;
+    border: 1px solid #2385D0;
+    color: #2385D0;
+}
