@@ -17,18 +17,12 @@ class AttendanceController extends Controller
         // デフォルト：今日の日付
 
         // if ($request->) {
-        //     $date = $request->date;
+        //     $date = $request->;
         // } else {
         //     $date = Carbon::today()->format('Y-m-d');
         // }
 
 
-
-        // 名前：$user_id
-        // 勤務開始：Attendance(日付で絞る)->start_time　
-        // 勤務終了：Attendance(日付で絞る)->end_time　
-        // 休憩時間：Breaktime(日付で絞る)->end_time - start_time のsum　
-        // 勤務時間：勤務終了時刻 - 休憩時間 - 勤務開始時刻　
 
 
 
