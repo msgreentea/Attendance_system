@@ -48,6 +48,7 @@ class AttendanceController extends Controller
         foreach ($breaktimes as $breaktime) {
             $daily_breaktimes = Breaktime::where('created_at', $individual_daily_attendance->date)->get();
             dd($daily_breaktimes);
+            // each breaktimeの計算
         }
 
 
