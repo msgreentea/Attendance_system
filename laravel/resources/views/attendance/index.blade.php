@@ -26,15 +26,15 @@
 @section('content')
 
     <h2 class="sec-title center">
-        <form action="" method="">
+        <form action="{{ route('attendance.index') }}" method="POST">
             @csrf
-            <input type="hidden" name="">
+            <input type="hidden" name="next">
             <button> < </button>
         </form>
         {{  $attendance->date  }}
         <form action="" method="">
             @csrf
-            <input type="hidden" name="">
+            <input type="hidden" name="previous">
             <button> > </button>
         </form>
     </h2>
@@ -47,16 +47,22 @@
             <th>休憩時間</th>
             <th>勤務時間</th>
         </tr>
-        @foreach ($attendance as $item)
+        @foreach ($all_records as $all_record)
         <tr>
-            {{-- <td>{{ $all_records->name }}</td>
-            <td>{{ $all_records->start_time }}</td>
-            <td>{{ $all_records->end_time }}</td>
-            <td>{{ $all_records->breaktime_total }}</td>
-            <td>{{ $all_records->working_hours }}</td> --}}
+            <td>{{ $attendance->name }}</td>
+            <td>{{ $attendance->start_time }}</td>
+            <td>{{ $attendance->end_time }}</td>
+            <td>{{ $breaktime->breaktime_total }}</td>
+            <td>{{ $all_records->working_hours }}</td>
         </tr>
-        {{-- @endforeach --}}
+        @endforeach
     </table>
     <p class="center">ページネーション</p>
+    {{-- <div class="pagination center">
+        <ul>
+            <li class="arrow"><a href=""><</a></li>
+            <li></li>
+        </ul>
+    </div> --}}
 
 @endsection

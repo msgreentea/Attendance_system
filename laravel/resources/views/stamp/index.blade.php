@@ -33,7 +33,6 @@
     <div class="contents">
         <form action="{{ route('punchin') }}" method="POST">
         @csrf
-            <input type="hidden" name="id" value="id">
             <button class="content bold">勤務開始</button>
         </form>
         <form action="{{ route('punchout') }}" method="POST">
