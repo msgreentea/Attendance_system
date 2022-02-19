@@ -56,7 +56,7 @@ class StampController extends Controller
             return redirect()->route('stamp.index')->with('text', '既に退勤しています。');
         }
 
-        $breaktime = Breaktime::where('attendances_id', $attendance->id)->wherenull('end_time')->first();
+        $breaktime = Breaktime::where('attendance_id', $attendance->id)->wherenull('end_time')->first();
 
         // 既に出勤処理済み & （退勤処理がされていない）
         if ($breaktime != null && $breaktime->end_time == null) { // breaktimeにデータがある(休憩開始処理済み) & 休憩終了処理をしていない時
@@ -85,7 +85,7 @@ class StampController extends Controller
             return redirect()->route('stamp.index')->with('text', '既に退勤しています。');
         }
 
-        $breaktime = Breaktime::where('attendances_id', $attendance->id)->wherenull('end_time')->first();
+        $breaktime = Breaktime::where('attendance_id', $attendance->id)->wherenull('end_time')->first();
 
         if ($breaktime != null) { // breaktimeにデータがある(休憩開始処理済み)
             return redirect()->route('stamp.index')->with('text', '休憩中です。');
@@ -93,7 +93,7 @@ class StampController extends Controller
             $now = Carbon::now()->format('H:i:s');
 
             Breaktime::create([
-                'attendances_id' => $attendance->id,
+                'attendance_id' => $attendance->id,
                 'start_time' => $now,
             ]);
             return redirect()->route('stamp.index')->with('text', '休憩開始 ☺︎');
@@ -113,7 +113,7 @@ class StampController extends Controller
             return redirect()->route('stamp.index')->with('text', '既に退勤しています。');
         }
 
-        $breaktime = Breaktime::where('attendances_id', $attendance->id)->wherenull('end_time')->first();
+        $breaktime = Breaktime::where('attendance_id', $attendance->id)->wherenull('end_time')->first();
 
         if ($breaktime == null) { // breaktimeにデータがない(休憩開始処理をしていない)時
             return redirect()->route('stamp.index')->with('text', '休憩開始処理をしていません。');
