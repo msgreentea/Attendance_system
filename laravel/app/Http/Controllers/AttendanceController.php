@@ -29,30 +29,39 @@ class AttendanceController extends Controller
 
 
         $id = Auth::id();
+        $name = Auth::user()->name;
         $date = Carbon::today()->format('Y-m-d');
 
-        // (attendance)id,dateで絞る
-        $individual_daily_attendance = Attendance::where('user_id', $id)->where('date', $date)->first();
+        // 日ごとの勤怠情報
+        $attendance = Attendance::where('user_id', $id)->where('date', $date)->first();
 
-        // (breaktime)attendance_idで絞る
-        $breaktimes = Breaktime::where('attendances_id', $individual_daily_attendance->user_id)->get();
+        // 日ごとの休憩時間たち
+        $breaktimes = Breaktime::where('attendance_id', $attendance->user_id)->get();
 
-        dd($breaktimes);
-        // $daily_breaktimes = Breaktime::where('attendances_id', $id)->where('created_at', $individual_daily_attendance->date)->first();
+        // 休憩時間をばらして、それぞれ休憩時間を出したものを合計したい
+        $breaktime_total = 0;
         foreach ($breaktimes as $breaktime) {
-            $daily_breaktimes = Breaktime::where('created_at', $individual_daily_attendance->date)->get();
-            dd($daily_breaktimes);
             // each breaktimeの計算
+            $start_time = $breaktime->start_time;
+            $end_time = $breaktime->end_time;
+            var_dump($start_time);
+            var_dump($end_time);
         }
+        echo $breaktime_total;
 
 
+        // 名前
+        // 勤務開始
+        // 勤務終了
+        // 休憩時間の合計
+        // 勤務時間
+        $all_records = [
+            'date' => $date,
+            'name' => $name,
+            'punchin' => $attendance->start_time,
+            'punchout' => $attendance->end_time
+        ];
 
-
-
-
-
-        $all_records = [];
-
-        return view('attendance.index', compact('all_recirds'));
+        return view('attendance.index', ['all_records' => $all_records]);
     }
 }

@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('/css/attendance.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/all_record.css') }}">
 @endsection
 
 @section('title')
@@ -31,7 +31,8 @@
             <input type="hidden" name="next">
             <button> < </button>
         </form>
-        {{  $attendance->date  }}
+        {{-- {{  $all_records->date  }} --}}
+        {{  'date'  }}
         <form action="" method="">
             @csrf
             <input type="hidden" name="previous">
@@ -49,11 +50,11 @@
         </tr>
         @foreach ($all_records as $all_record)
         <tr>
-            <td>{{ $attendance->name }}</td>
-            <td>{{ $attendance->start_time }}</td>
-            <td>{{ $attendance->end_time }}</td>
-            <td>{{ $breaktime->breaktime_total }}</td>
-            <td>{{ $all_records->working_hours }}</td>
+            <td>{{ $all_record->name }}</td>
+            <td>{{ $all_record->start_time }}</td>
+            <td>{{ $all_record->end_time }}</td>
+            {{-- <td>{{ $breaktime->breaktime_total }}</td>
+            <td>{{ $all_records->working_hours }}</td> --}}
         </tr>
         @endforeach
     </table>
