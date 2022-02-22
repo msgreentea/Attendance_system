@@ -44,19 +44,17 @@ class AttendanceController extends Controller
         $breaktime_total = 0;
         foreach ($breaktimes as $breaktime) {
             // each breaktimeの計算
-            $start_time = new DateTime($breaktime->start_time);
-            $end_time = new DateTime($breaktime->end_time);
+            $start_time = strtotime($breaktime->start_time);
+            $end_time = strtotime($breaktime->end_time);
             // $total = $start_time->diffInSeconds($end_time);
             $total = $end_time - $start_time;
+            $result = date("H:i:s", $total);
 
-            // strtotime と diff
+            // strtotime と diff と datetime
             //  strtotime の 2038年問題 とは？
-
-            var_dump($start_time);
-            var_dump($end_time);
-            var_dump($total);
+            var_dump($result);
         }
-        echo $breaktime_total;
+        // echo $breaktime_total;
 
         // $date = $attendance->date;
 
