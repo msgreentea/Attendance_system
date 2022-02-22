@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('/css/all_record.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/attendance.css') }}">
 @endsection
 
 @section('title')
@@ -31,8 +31,7 @@
             <input type="hidden" name="next">
             <button> < </button>
         </form>
-        {{-- {{  $all_records->date  }} --}}
-        {{  'date'  }}
+        {{  $date  }}
         <form action="" method="">
             @csrf
             <input type="hidden" name="previous">
@@ -48,15 +47,15 @@
             <th>休憩時間</th>
             <th>勤務時間</th>
         </tr>
-        @foreach ($all_records as $all_record)
+        {{-- @foreach ($all_records as $all_record) --}}
         <tr>
-            <td>{{ $all_record->name }}</td>
-            <td>{{ $all_record->start_time }}</td>
-            <td>{{ $all_record->end_time }}</td>
-            {{-- <td>{{ $breaktime->breaktime_total }}</td>
-            <td>{{ $all_records->working_hours }}</td> --}}
+            <td>{{ $name }}</td>
+            <td>{{ $punchin }}</td>
+            <td>{{ $punchout }}</td>
+            {{-- <td>{{ $breaktime->breaktime_total }}</td> --}}
+            {{-- <td>{{ $all_records->working_hours }}</td> --}}
         </tr>
-        @endforeach
+        {{-- @endforeach --}}
     </table>
     <p class="center">ページネーション</p>
     {{-- <div class="pagination center">
