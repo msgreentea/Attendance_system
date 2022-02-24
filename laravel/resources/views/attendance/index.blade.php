@@ -47,15 +47,15 @@
             <th>休憩時間</th>
             <th>勤務時間</th>
         </tr>
-        {{-- @foreach ($all_records as $all_record) --}}
+        @foreach ($all_records as $all_record)
         <tr>
             <td>{{ $name }}</td>
             <td>{{ $punchin }}</td>
             <td>{{ $punchout }}</td>
-            {{-- <td>{{ $breaktime->breaktime_total }}</td> --}}
+            <td>{{ $breaktime_total }}</td>
             {{-- <td>{{ $all_records->working_hours }}</td> --}}
         </tr>
-        {{-- @endforeach --}}
+        @endforeach
     </table>
     <p class="center">ページネーション</p>
     {{-- <div class="pagination center">
