@@ -31,22 +31,26 @@ class AttendanceController extends Controller
         // $users = User::all('id', 'name');
 
         $id = Auth::id();
-        dd($id);
+        // dd($id);
         // 名前
         $name = Auth::user()->name;
         $date = Carbon::today()->format('Y-m-d');
 
         // 日ごとの勤怠情報 -> 勤務開始・勤務終了
         $attendances = Attendance::where('date', $date)->get();
+        // dd($attendances);
         foreach ($attendances as $attendance) {
-            $name = User::where('name', $name)->get('name');
+            // $name = User::where('name', $name)->get('name');
 
-            $punchin = new DateTime($attendance->start_time);
+            // $punchin = new DateTime($attendance->start_time);
+            $punchin = new Carbon($attendance->start_time);
             dd($punchin);
+            // dd($punchin);
             $punchout = new DateTime($attendance->end_time);
+            // var_dump($punchout . '<br />');
         }
 
-        $attendance = Attendance::where('user_id', $id)->where('date', $date)->first();
+        // $attendance = Attendance::where('user_id', $id)->where('date', $date)->first();
 
 
 
