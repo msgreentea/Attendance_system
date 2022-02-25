@@ -25,64 +25,42 @@ class AttendanceController extends Controller
 
 
 
-
-
-
-        // $users = User::all('id', 'name');
-
         $id = Auth::id();
-        // dd($id);
+        $date = Carbon::today()->format('Y-m-d');
         // 名前
         $name = Auth::user()->name;
-        $date = Carbon::today()->format('Y-m-d');
+
 
         // 日ごとの勤怠情報 -> 勤務開始・勤務終了
-        $attendances = Attendance::where('date', $date)->get();
-        // dd($attendances);
-        foreach ($attendances as $attendance) {
-            // $name = User::where('name', $name)->get('name');
+        $attendance = Attendance::where('date', $date)->where('user_id', $id)->first();
 
-            // $punchin = new DateTime($attendance->start_time);
-            $punchin = new Carbon($attendance->start_time);
-            dd($punchin);
-            // dd($punchin);
-            $punchout = new DateTime($attendance->end_time);
-            // var_dump($punchout . '<br />');
-        }
+        $punchin = new DateTime($attendance->start_time);
+        $punchout = new DateTime($attendance->end_time);
 
-        // $attendance = Attendance::where('user_id', $id)->where('date', $date)->first();
 
 
 
         // 日ごとの休憩時間たち
-        // attendance->id じゃなくて attendance->user_idにしてた。意味がよくわかっていない
         $breaktimes = Breaktime::where('attendance_id', $attendance->id)->get();
 
         // 休憩時間
         $breaktime_sum = new DateTime('00:00'); // 休憩時間をばらして、それぞれ休憩時間を出したものを合計したい
         foreach ($breaktimes as $breaktime) {
             // ★each breaktimeの計算
-
-            // ★strtotime
-            // $start_time = strtotime($breaktime->start_time);
-            // $end_time = strtotime($breaktime->end_time);
-            // $total = $end_time - $start_time;
-            // ※strtotime の 2038年問題 とは？
-            // $breaktime_sum += $total;
-
-            // ★datetime & diff
             // ※timespanとは？
-            $start_time = $punchin;
-            $end_time = $punchout;
-            // $start_time = new DateTime($breaktime->start_time);
-            // $end_time = new DateTime($breaktime->end_time);
-            $total = $start_time->diff($end_time);
+            $breakin = new DateTime($breaktime->start_time);
+            $breakout = new DateTime($breaktime->end_time);
+            // var_dump($breakin);
+            // var_dump($breakout);
+            $total = $breakin->diff($breakout);
+            // $total = $breakout->diff($breakin);
             $breaktime_sum->add($total);
         }
         $breaktime_total = date_format($breaktime_sum, 'H:i:s');
 
+
         // 勤務時間
-        $a = $punchout->diff($punchin);
+        // $a = $punchout->diff($punchin);
         // $b = new DateTime($a, '00:00');
         // dd($a);
         // dd($a->diff($breaktime_sum));
@@ -90,8 +68,24 @@ class AttendanceController extends Controller
 
 
 
+
+        // $users = User::all('id', 'name');
+
+        $attendances = Attendance::where('date', $date)->get();
+        foreach ($attendances as $attendance) {
+            // $name = User::where('name', $name)->get('name');
+
+            $punchin = new DateTime($attendance->start_time);
+            $punchout = new DateTime($attendance->end_time);
+        }
+
+        // $attendance = Attendance::where('user_id', $id)->where('date', $date)->first();
+
+
+
+
         $all_records = [
-            'date' => $attendance->date,
+            'date' => $date,
             'attendance' => $attendance,
             'name' => $name,
             'punchin' => $attendance->start_time,

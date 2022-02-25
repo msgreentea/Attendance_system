@@ -31,7 +31,9 @@
             <input type="hidden" name="next">
             <button> < </button>
         </form>
-        {{  $date  }}
+        {{-- {{  $date  }} --}}
+        {{-- {{  $all_records['date']  }} --}}
+        {{  $all_records->date  }}
         <form action="" method="">
             @csrf
             <input type="hidden" name="previous">
