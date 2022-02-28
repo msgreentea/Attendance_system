@@ -28,3 +28,4 @@ Route::get('/logout', [AuthController::class, 'logout'])->middleware("auth")->na
 
 // 日付別勤怠ページ
 Route::get('/attendance', [AttendanceController::class, 'index'])->middleware("auth")->name('attendance.index');
+// Route::get('/attendance/{date}', [AttendanceController::class, 'index'])->middleware("auth")->name('attendance.index');

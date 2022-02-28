@@ -23,7 +23,7 @@ class Attendance extends Model
     }
 
     //（従）Breaktimeモデルへの紐づけ
-    public function breaktime()
+    public function breaktimes()
     {
         return $this->hasMany('App\Models\Breaktime');
     }

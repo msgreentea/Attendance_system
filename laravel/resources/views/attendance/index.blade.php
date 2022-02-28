@@ -13,10 +13,16 @@
     <nav>
         <ul class="header-ul">
             <li class="header-list bold"><a href="{{ route('stamp.index') }}">ホーム</a></li>
-            <li class="header-list bold"><a href="{{ route('attendance.index') }}">日付一覧</a></li>
-            <form action="{{ route('auth.logout') }}" method="POST">
+            {{-- <li class="header-list bold"><a href="{{ route('attendance.index') }}">日付一覧</a></li> --}}
+            <form class="header-list bold" action="{{ route('attendance.index') }}" name="date">
                 @csrf
-                <li class="header-list bold"><a href="">ログアウト</a></li>
+                <li>
+                    <a href="{{ route('attendance.index') }}">日付一覧</a>
+                </li>
+            </form>
+            <form class="header-list bold" action="{{ route('auth.logout') }}" method="POST">
+                @csrf
+                <li><a href="">ログアウト</a></li>
             </form>
         </ul>
     </nav>
@@ -31,9 +37,7 @@
             <input type="hidden" name="next">
             <button> < </button>
         </form>
-        {{-- {{  $date  }} --}}
-        {{-- {{  $all_records['date']  }} --}}
-        {{  $all_records->date  }}
+        {{  $date  }}
         <form action="" method="">
             @csrf
             <input type="hidden" name="previous">
@@ -49,12 +53,13 @@
             <th>休憩時間</th>
             <th>勤務時間</th>
         </tr>
-        @foreach ($all_records as $all_record)
+        @foreach ($attendances as $attendance)
         <tr>
-            <td>{{ $name }}</td>
-            <td>{{ $punchin }}</td>
-            <td>{{ $punchout }}</td>
-            <td>{{ $breaktime_total }}</td>
+            <td>{{ $attendance->user->name }}</td>
+            <td>{{ $attendance->start_time }}</td>
+            <td>{{ $attendance->end_time }}</td>
+            {{-- <td>{{ $attendance->breaktime_total }}</td> --}}
+            <td>{{ $breaktime_total->format('H:i:s') }}</td>
             {{-- <td>{{ $all_records->working_hours }}</td> --}}
         </tr>
         @endforeach
