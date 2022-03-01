@@ -27,5 +27,5 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware("auth")->n
 Route::get('/logout', [AuthController::class, 'logout'])->middleware("auth")->name('auth.logout');
 
 // 日付別勤怠ページ
-Route::get('/attendance', [AttendanceController::class, 'index'])->middleware("auth")->name('attendance.index');
-// Route::get('/attendance/{date}', [AttendanceController::class, 'index'])->middleware("auth")->name('attendance.index');
+Route::get('/attendance/{date?}', [AttendanceController::class, 'index'])->middleware("auth")->name('attendance.index');
+// Route::get('/attendance', [AttendanceController::class, 'index'])->middleware("auth")->name('attendance.index');

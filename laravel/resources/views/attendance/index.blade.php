@@ -15,6 +15,7 @@
             <li class="header-list bold"><a href="{{ route('stamp.index') }}">ホーム</a></li>
             {{-- <li class="header-list bold"><a href="{{ route('attendance.index') }}">日付一覧</a></li> --}}
             <form class="header-list bold" action="{{ route('attendance.index') }}" name="date">
+                {{-- <a href="menu_delete.php?action=delete&id={$row.id}&date={$date->format('Ymd')}" class="complate" name="delete"> --}}
                 @csrf
                 <li>
                     <a href="{{ route('attendance.index') }}">日付一覧</a>
@@ -34,14 +35,14 @@
     <h2 class="sec-title center">
         <form action="{{ route('attendance.index') }}" method="POST">
             @csrf
-            <input type="hidden" name="next">
-            <button> < </button>
+            <input type="hidden" name="date"" value="{{ $date }}">
+            <button value="previous"> < </button>
         </form>
         {{  $date  }}
         <form action="" method="">
             @csrf
-            <input type="hidden" name="previous">
-            <button> > </button>
+            <input type="hidden" name="date" value="{{ $date }}">
+            <button value="next"> > </button>
         </form>
     </h2>
 
@@ -58,13 +59,16 @@
             <td>{{ $attendance->user->name }}</td>
             <td>{{ $attendance->start_time }}</td>
             <td>{{ $attendance->end_time }}</td>
-            {{-- <td>{{ $attendance->breaktime_total }}</td> --}}
-            <td>{{ $breaktime_total->format('H:i:s') }}</td>
-            {{-- <td>{{ $all_records->working_hours }}</td> --}}
+            {{-- <td>{{ $attenance->breaktime_total }}</td> --}}
+            <td>{{ $breaktime_totals[$attendance->id]->format('H:i:s') }}</td>
+            <td>{{ $working_hours }}</td>
+            {{-- <td>{{ $working_hours->format('H:i:s') }}</td> --}}
         </tr>
         @endforeach
     </table>
+<br>
     <p class="center">ページネーション</p>
+    {{ $attendance->links() }}
     {{-- <div class="pagination center">
         <ul>
             <li class="arrow"><a href=""><</a></li>
