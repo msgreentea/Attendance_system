@@ -67,8 +67,9 @@
         @endforeach
     </table>
 <br>
-    <p class="center">ページネーション</p>
-    {{ $attendance->links() }}
+    <p class="center pagination">
+        {{ $attendances->links() }}
+    </p>
     {{-- <div class="pagination center">
         <ul>
             <li class="arrow"><a href=""><</a></li>

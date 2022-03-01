@@ -21,3 +21,16 @@ tr {
     color: #2385d0;
     margin: 0 30px;
 }
+.pagination {
+    font-size: 12px;
+    /* text-align: center; */
+}
+.items-center,
+svg.w-5.h-5 path {
+    display: flex;
+    justify-content: center;
+}
+svg.w-5.h-5 {
+    width: 30px;
+    height: 30px;
+}
