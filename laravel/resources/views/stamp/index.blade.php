@@ -31,18 +31,27 @@
             <p class="red center">{{ session('text') }}</p>
         @endif
     <div class="contents">
+        {{-- punchin --}}
         <form action="{{ route('punchin') }}" method="POST">
         @csrf
-            <button class="content bold">勤務開始</button>
+            @if (attendance->start_time != null)
+            {{-- @if (Session::has('attendance->start_time')) --}}
+                <button class="content bold disabled" disabled>勤務開始</button>
+            @else
+                <button class="content bold">勤務開始</button>
+            @endif
         </form>
+        {{-- punchout --}}
         <form action="{{ route('punchout') }}" method="POST">
             @csrf
             <button class="content bold">勤務終了</button>
         </form>
+        {{-- breakin --}}
         <form action="{{ route('breakin') }}" method="POST">
         @csrf
             <button class="content bold">休憩開始</button>
         </form>
+        {{-- breakout --}}
         <form action="{{ route('breakout') }}" method="POST">
         @csrf
             <button class="content bold">休憩終了</button>

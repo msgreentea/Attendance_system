@@ -13,8 +13,12 @@ class StampController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $today = Carbon::today()->format('Y-m-d');
 
-        return view('stamp.index', ['user' => $user]);
+        // 制御
+        $attendance = Attendance::where('user_id', $user)->where('date', $today)->first();
+
+        return view('stamp.index', compact('user', 'attendance'));
     }
 
     // 勤務開始

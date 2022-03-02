@@ -23,3 +23,6 @@ form {
     text-align: center;
     font-size: 22px;
 }
+.disabled {
+    opacity: 0.2;
+}
