@@ -2,6 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('/css/attendance.css') }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 @endsection
 
 @section('title')
@@ -66,15 +67,9 @@
         </tr>
         @endforeach
     </table>
-<br>
-    <p class="center pagination">
+    <div class="center pagination">
         {{ $attendances->links() }}
-    </p>
-    {{-- <div class="pagination center">
-        <ul>
-            <li class="arrow"><a href=""><</a></li>
-            <li></li>
-        </ul>
-    </div> --}}
+        {{-- {{ $attendances->links('pagination::bootstrap-4') }} --}}
+    </div>
 
 @endsection
