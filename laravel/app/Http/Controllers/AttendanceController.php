@@ -13,8 +13,8 @@ use DateTime;
 class AttendanceController extends Controller
 {
     public function index(Request $request)
+    // public function index(Request $request, $date)
     {
-
 
         // ページを送ってって「その日の記録がない」場合はどうするの？
         // ifの中でifは出来るの？
@@ -47,6 +47,7 @@ class AttendanceController extends Controller
 
         // 日ごとの勤怠情報 -> 勤務開始・勤務終了
         $attendances = Attendance::where('date', $date)->paginate(2); // $dateのattendance全部取得
+
         $breaktime_totals = [];
 
         foreach ($attendances as $attendance) {
