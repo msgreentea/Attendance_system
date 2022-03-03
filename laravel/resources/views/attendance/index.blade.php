@@ -34,16 +34,16 @@
 @section('content')
 
     <h2 class="sec-title center">
-        <form action="{{ route('attendance.index') }}" method="POST">
+        <form action="{{ route('attendance.index', ['date' => '03-03']) }}" method="get">
             @csrf
             <input type="hidden" name="date"" value="{{ $date }}">
-            <button value="previous"> < </button>
+            <button name="other_date" value="previous"> < </button>
         </form>
         {{  $date  }}
-        <form action="" method="">
+        <form action="{{ route('attendance.index', ['date' => 'yy-mm-dd']) }}" method="get">
             @csrf
             <input type="hidden" name="date" value="{{ $date }}">
-            <button value="next"> > </button>
+            <button name="other_date" value="next"> > </button>
         </form>
     </h2>
 

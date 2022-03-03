@@ -13,16 +13,33 @@ use DateTime;
 class AttendanceController extends Controller
 {
     public function index(Request $request)
+    // public function index(Request $request, $date)
     {
 
+        // ページを送ってって「その日の記録がない」場合はどうするの？
+        // ifの中でifは出来るの？
+        // dd($request);
+        $attendances = Attendance::all();
+        $today = Carbon::today();
+        $other_date = $request->other_date;
+        // dd($other_date);
 
-        // 左押したら翌日　<-  -> 右押したら前日
-        // デフォルト：今日の日付
-        // dd($date);
-        if ($request->date != null) {
-            $date = $request->date;
+        // if ($request->other_date == null) { // デフォルトはtoday
+        //     $date = $today;
+        //     // dump($date);
+        // } elseif ($request->previous != null) {
+        //     $date = $today->addDays(1);
+        // } elseif ($request->next != null) {
+        //     $date = $today->addDays(-1);
+        // }
+
+        if ($other_date == 'previous') { // ＜
+            $date = $today->subDay();
+            // dd($date);
+        } elseif ($request->next != null) { // ＞
+            $date = $today->addDay();
         } else {
-            $date = Carbon::today()->format('Y-m-d');
+            $date = $today;
         }
 
 
@@ -32,6 +49,7 @@ class AttendanceController extends Controller
 
         // 日ごとの勤怠情報 -> 勤務開始・勤務終了
         $attendances = Attendance::where('date', $date)->paginate(2); // $dateのattendance全部取得
+
         $breaktime_totals = [];
 
         foreach ($attendances as $attendance) {
