@@ -14,18 +14,10 @@
     <nav>
         <ul class="header-ul">
             <li class="header-list bold"><a href="{{ route('stamp.index') }}">ホーム</a></li>
-            {{-- <li class="header-list bold"><a href="{{ route('attendance.index') }}">日付一覧</a></li> --}}
-            <form class="header-list bold" action="{{ route('attendance.index') }}" name="date">
-                {{-- <a href="menu_delete.php?action=delete&id={$row.id}&date={$date->format('Ymd')}" class="complate" name="delete"> --}}
-                @csrf
-                <li>
-                    <a href="{{ route('attendance.index') }}">日付一覧</a>
-                </li>
-            </form>
-            <form class="header-list bold" action="{{ route('auth.logout') }}" method="POST">
-                @csrf
-                <li><a href="">ログアウト</a></li>
-            </form>
+            <li class="header-list bold"><a href="{{ route('attendance.index') }}">日付一覧</a></li>
+            <li class="header-list bold"><a href="{{ route('auth.logout') }}">ログアウト</a></li>
+
+            {{-- <a href="menu_delete.php?action=delete&id={$row.id}&date={$date->format('Ymd')}" class="complate" name="delete"> --}}
         </ul>
     </nav>
 @endsection
@@ -34,16 +26,16 @@
 @section('content')
 
     <h2 class="sec-title center">
-        <form action="{{ route('attendance.index') }}" method="POST">
+        <form action="{{ route('attendance.index', ['date' => 'yy-mm-dd']) }}" method="get">
             @csrf
             <input type="hidden" name="date"" value="{{ $date }}">
-            <button value="previous"> < </button>
+            <button class="select" name="other_date" value="previous"> < </button>
         </form>
         {{  $date  }}
-        <form action="" method="">
+        <form action="{{ route('attendance.index', ['date' => 'yy-mm-dd']) }}" method="get">
             @csrf
             <input type="hidden" name="date" value="{{ $date }}">
-            <button value="next"> > </button>
+            <button class="select" name="other_date" value="next"> > </button>
         </form>
     </h2>
 

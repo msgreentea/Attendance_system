@@ -16,13 +16,28 @@ class AttendanceController extends Controller
     {
 
 
-        // 左押したら翌日　<-  -> 右押したら前日
-        // デフォルト：今日の日付
-        // dd($date);
-        if ($request->date != null) {
-            $date = $request->date;
+        // ページを送ってって「その日の記録がない」場合はどうするの？
+        // ifの中でifは出来るの？
+        // dd($request);
+        $attendances = Attendance::all();
+        $today = Carbon::today();
+        $other_date = $request->other_date;
+
+        // if ($request->other_date == null) { // デフォルトはtoday
+        //     $date = $today;
+        //     // dump($date);
+        // } elseif ($request->previous != null) {
+        //     $date = $today->addDays(1);
+        // } elseif ($request->next != null) {
+        //     $date = $today->addDays(-1);
+        // }
+
+        if ($other_date == 'previous') { // ＜
+            $date = $today->subDay();
+        } elseif ($request->next != null) { // ＞
+            $date = $today->addDay();
         } else {
-            $date = Carbon::today()->format('Y-m-d');
+            $date = $today;
         }
 
 

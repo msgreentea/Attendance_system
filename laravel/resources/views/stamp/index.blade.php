@@ -34,12 +34,12 @@
         {{-- punchin --}}
         <form action="{{ route('punchin') }}" method="POST">
         @csrf
-            @if (attendance->start_time != null)
+            {{-- @if (attendance->start_time != null) --}}
             {{-- @if (Session::has('attendance->start_time')) --}}
-                <button class="content bold disabled" disabled>勤務開始</button>
-            @else
+                {{-- <button class="content bold disabled" disabled>勤務開始</button> --}}
+            {{-- @else --}}
                 <button class="content bold">勤務開始</button>
-            @endif
+            {{-- @endif --}}
         </form>
         {{-- punchout --}}
         <form action="{{ route('punchout') }}" method="POST">
