@@ -35,15 +35,9 @@
         <form action="{{ route('punchin') }}" method="POST">
         @csrf
             {{-- @if (attendance->start_time != null) --}}
-<<<<<<< HEAD
             {{-- @if (Session::has('attendance->start_time')) --}}
                 {{-- <button class="content bold disabled" disabled>勤務開始</button> --}}
             {{-- @else --}}
-=======
-            @if (Session::has('attendance->start_time'))
-                <button class="content bold disabled" disabled>勤務開始</button>
-            @else
->>>>>>> 74311787c698666b8cebe3fde4f5b7dea6288d40
                 <button class="content bold">勤務開始</button>
             {{-- @endif --}}
         </form>
