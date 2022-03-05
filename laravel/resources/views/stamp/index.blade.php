@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-
+ホーム
 @endsection
 
 
@@ -15,11 +15,6 @@
             <li class="header-list bold"><a href="{{ route('stamp.index') }}">ホーム</a></li>
             <li class="header-list bold"><a href="{{ route('attendance.index') }}">日付一覧</a></li>
             <li class="header-list bold"><a href="{{ route('auth.logout') }}">ログアウト</a></li>
-            {{-- methodをpostにした場合 --}}
-            {{-- <form action="{{ route('auth.logout') }}" method="POST">
-                @csrf
-                <li class="header-list bold"><input type="submit" value="ログアウト"></li>
-            </form> --}}
         </ul>
     </nav>
 @endsection
@@ -27,34 +22,49 @@
 
 @section('content')
         <h2 class="sec-title center">{{ $user->name }}さんお疲れ様です！</h2>
-        @if (session('text'))
-            <p class="red center">{{ session('text') }}</p>
+        @if (session('status'))
+            <p class="red center">{{ session('status') }}</p>
         @endif
     <div class="contents">
         {{-- punchin --}}
         <form action="{{ route('punchin') }}" method="POST">
         @csrf
-            {{-- @if (attendance->start_time != null) --}}
-            {{-- @if (Session::has('attendance->start_time')) --}}
-                {{-- <button class="content bold disabled" disabled>勤務開始</button> --}}
-            {{-- @else --}}
-                <button class="content bold">勤務開始</button>
-            {{-- @endif --}}
+            @if ($punchin_btn == false)
+            <button class="content bold" disabled>勤務開始</button>
+            @else
+            <button class="content bold">勤務開始</button>
+            @endif
+            {{-- <button class="content bold already" <?php if($btn['punchin_btn'] == false){ ?> btn <?php } ?> >勤務開始</button> --}}
         </form>
+
         {{-- punchout --}}
         <form action="{{ route('punchout') }}" method="POST">
-            @csrf
+        @csrf
+        @if ($punchout_btn == false)
+            <button class="content bold already" disabled>勤務終了</button>
+        @else
             <button class="content bold">勤務終了</button>
+        @endif
         </form>
+
         {{-- breakin --}}
         <form action="{{ route('breakin') }}" method="POST">
         @csrf
-            <button class="content bold">休憩開始</button>
+        @if ($breakin_btn == false)
+        <button class="content bold already" disabled>休憩開始</button>
+        @else
+        <button class="content bold">休憩開始</button>
+        @endif
         </form>
+
         {{-- breakout --}}
         <form action="{{ route('breakout') }}" method="POST">
         @csrf
-            <button class="content bold">休憩終了</button>
+        @if ($breakout_btn == false)
+        <button class="content bold already" disabled>休憩終了</button>
+        @else
+        <button class="content bold">休憩終了</button>
+        @endif
         </form>
     </div>
 @endsection

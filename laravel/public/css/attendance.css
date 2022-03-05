@@ -5,6 +5,7 @@ table {
     width: 100%;
     table-layout: auto;
     text-align: center;
+    position: relative;
 }
 tr {
     width: 100%;
@@ -25,18 +26,11 @@ tr {
     margin: 0 30px;
 }
 .pagination {
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .select {
     padding: 0 10px;
 }
-/* .items-center,
-svg.w-5.h-5 path {
-    display: flex;
-    justify-content: center;
-}
-svg.w-5.h-5 {
-    width: 30px;
-    height: 30px;
-} */

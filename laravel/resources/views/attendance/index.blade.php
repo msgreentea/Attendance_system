@@ -6,7 +6,7 @@
 @endsection
 
 @section('title')
-
+日付一覧
 @endsection
 
 
@@ -16,8 +16,6 @@
             <li class="header-list bold"><a href="{{ route('stamp.index') }}">ホーム</a></li>
             <li class="header-list bold"><a href="{{ route('attendance.index') }}">日付一覧</a></li>
             <li class="header-list bold"><a href="{{ route('auth.logout') }}">ログアウト</a></li>
-
-            {{-- <a href="menu_delete.php?action=delete&id={$row.id}&date={$date->format('Ymd')}" class="complate" name="delete"> --}}
         </ul>
     </nav>
 @endsection
@@ -26,18 +24,22 @@
 @section('content')
 
     <h2 class="sec-title center">
-        <form action="{{ route('attendance.index', ['date' => 'yy-mm-dd']) }}" method="get">
-            @csrf
-            <input type="hidden" name="date"" value="{{ $date }}">
-            <button class="select" name="other_date" value="previous"> < </button>
+        {{-- getだと @csrf いらない, formタグである必要もない --}}
+        <form action="{{ route('attendance.index', ['date' => $previous_date->format('Y-m-d')]) }}" method="get">
+            <button> < </button>
+            {{-- <input type="hidden" name="date"" value="{{ $date }}"> --}}
+            {{-- <button class="select" name="other_date" value="previous"> < </button> --}}
         </form>
-        {{  $date  }}
-        <form action="{{ route('attendance.index', ['date' => 'yy-mm-dd']) }}" method="get">
-            @csrf
-            <input type="hidden" name="date" value="{{ $date }}">
-            <button class="select" name="other_date" value="next"> > </button>
+        {{  $date->format('Y-m-d')  }}
+        <form action="{{ route('attendance.index', ['date' => $next_date->format('Y-m-d')]) }}" method="get">
+            <button> > </button>
+            {{-- <input type="hidden" name="date" value="{{ $date }}"> --}}
+            {{-- <button class="select" name="other_date" value="next"> > </button> --}}
         </form>
     </h2>
+    {{-- @if (session('future'))
+            <p class="red center">{{ session('future') }}</p>
+    @endif --}}
 
     <table>
         <tr>
@@ -52,10 +54,8 @@
             <td>{{ $attendance->user->name }}</td>
             <td>{{ $attendance->start_time }}</td>
             <td>{{ $attendance->end_time }}</td>
-            {{-- <td>{{ $attenance->breaktime_total }}</td> --}}
-            <td>{{ $breaktime_totals[$attendance->id]->format('H:i:s') }}</td>
-            <td>{{ $working_hours }}</td>
-            {{-- <td>{{ $working_hours->format('H:i:s') }}</td> --}}
+            <td>{{ $breaktime_totals[$attendance->id] }}</td>
+            <td>{{ $working_hours[$attendance->id] }}</td>
         </tr>
         @endforeach
     </table>

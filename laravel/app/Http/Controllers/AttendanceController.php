@@ -4,109 +4,83 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Attendance;
-use App\Models\Breaktime;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use DateTime;
 
 class AttendanceController extends Controller
 {
-    public function index(Request $request)
-    // public function index(Request $request, $date)
+    public function index(Request $request, $date = null) //文字列で$dateが渡ってきてる //$dateを渡さずアクセスしたらnull
     {
-
-        // ページを送ってって「その日の記録がない」場合はどうするの？
-        // ifの中でifは出来るの？
-        // dd($request);
-        $attendances = Attendance::all();
-        $today = Carbon::today();
-        $other_date = $request->other_date;
-
-        // if ($request->other_date == null) { // デフォルトはtoday
-        //     $date = $today;
-        //     // dump($date);
-        // } elseif ($request->previous != null) {
-        //     $date = $today->addDays(1);
-        // } elseif ($request->next != null) {
-        //     $date = $today->addDays(-1);
-        // }
-
-        if ($other_date == 'previous') { // ＜
-            $date = $today->subDay();
-        } elseif ($request->next != null) { // ＞
-            $date = $today->addDay();
+        if ($date == null) {
+            $date = Carbon::today();
         } else {
-            $date = $today;
+            $date = new Carbon($date); //Carbonに直す　 new Carbon(null):今の時間が取れる
         }
 
+        $attendances = Attendance::all();
+        $previous_date = $date->copy()->subDay(); //$todayがupdateされてしまう(参照渡し) //copyすることで別の値として定義出来る
+        $next_date = $date->copy()->addDay();
 
-
-        // $date = Carbon::today()->format('Y-m-d');
+        // if ($other_date == 'previous') { // ＜
+        //     $date = $today->subDay();
+        // } elseif ($request->next != null) { // ＞
+        //     $date = $today->addDay();
+        // } else {
+        //     $date = $today;
+        // }
 
 
         // 日ごとの勤怠情報 -> 勤務開始・勤務終了
-        $attendances = Attendance::where('date', $date)->paginate(2); // $dateのattendance全部取得
+        $attendances = Attendance::where('date', $date->format('Y-m-d'))->paginate(5); // $dateのattendance全部取得
+        $breaktimes = [];
 
         $breaktime_totals = [];
+        $working_hours = [];
 
         foreach ($attendances as $attendance) {
             $breaktimes = $attendance->breaktimes; // $dateのbreaktime全部取得
-            $breaktime_total = new Carbon('00:00');
-            $working_hours = new Carbon('00:00');
+            $breaktime_total = 0;
 
             foreach ($breaktimes as $breaktime) {
                 $breakin = new Carbon($breaktime->start_time);
                 $breakout = new Carbon($breaktime->end_time);
 
                 $subtotal = $breakout->diffInSeconds($breakin); //１回の休憩時間の小計
-                $breaktime_total->addSecond($subtotal);
-                $breaktime_totals[$attendance->id] = $breaktime_total;
+                $breaktime_total += $subtotal;
             }
-            // Attendance::where('id', $attendance->id)->update(['breaktime_total' => $breaktime_total]); //breaktime_totalカラムがある場合
-
             $punchin = new Carbon($attendance->start_time);
             $punchout = new Carbon($attendance->end_time);
 
-            $work = $punchout->diffinseconds($punchin); // 休憩時間を除いた出勤時間(秒)
-            // dd($work);
-            // dd($breaktime_total);
-            // $working_hours = $work->diffinseconds($breaktime_total);
-            // dd($working_hours);
-            $working_hours = $work;
+            $work = $punchout->diffinseconds($punchin); // 出勤時間と退勤時間の差分(秒)
+            $working_seconds = $work - $breaktime_total; // -休憩時間(合計)
+
+            $working_hms = $this->toHMS($working_seconds);
+            $working_hours[$attendance->id] = $working_hms;
 
             // １日の休憩時間の合計
+            $breaktime_total = $this->toHMS($breaktime_total);
             $breaktime_totals[$attendance->id] = $breaktime_total;
-
-            // 勤務時間
-            // $working_hours =
-            // dump($attendance->addSecond($breaktime_total));
-
-            // dump($breaktime_total);
-            // dump($breaktime_total);
         }
-        // dump($working);
-        // exit();
-
-
-        // dump($breaktime_totals); // 人数分取得できる
-        // dump($breaktime_totals->breaktime_total);
-
-
-
-
-
-
 
         $all_records = [
-            'date' => $date,
+            'date' => $date, // パラメーターで渡ってきたやつ
+            'previous_date' => $previous_date,
+            'next_date' => $next_date,
             'attendances' => $attendances,
             'breaktimes' => $breaktimes,
-            'breaktime_totals' => $breaktime_totals, // 休憩時間の算出は大丈夫。渡し方がわからん
+            'breaktime_totals' => $breaktime_totals,
             'working_hours' => $working_hours
         ];
 
         return view('attendance.index', $all_records);
-        // return view('attendance.index', compact('date', 'attendances', 'breaktime_totals'));
+    }
+    // 秒を時間に変換する関数を作る
+    private function toHMS($total_seconds)
+    {
+        $hours = floor($total_seconds / 3600); // floor 切り捨てる
+        $minutes = floor($total_seconds % 3600 / 60);
+        $seconds = $total_seconds % 60;
+
+        // $minutes = floor(($total_seconds - 3600 * $hours) / 60);
+        return sprintf('%02d', $hours) . ':' . sprintf('%02d', $minutes) . ':' . sprintf('%02d', $seconds);
     }
 }
