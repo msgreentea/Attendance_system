@@ -41,7 +41,7 @@
         <form action="{{ route('punchout') }}" method="POST">
         @csrf
         @if ($punchout_btn == false)
-            <button class="content bold already" disabled>勤務終了</button>
+            <button class="content bold" disabled>勤務終了</button>
         @else
             <button class="content bold">勤務終了</button>
         @endif
@@ -51,7 +51,7 @@
         <form action="{{ route('breakin') }}" method="POST">
         @csrf
         @if ($breakin_btn == false)
-        <button class="content bold already" disabled>休憩開始</button>
+        <button class="content bold" disabled>休憩開始</button>
         @else
         <button class="content bold">休憩開始</button>
         @endif
@@ -61,7 +61,7 @@
         <form action="{{ route('breakout') }}" method="POST">
         @csrf
         @if ($breakout_btn == false)
-        <button class="content bold already" disabled>休憩終了</button>
+        <button class="content bold" disabled>休憩終了</button>
         @else
         <button class="content bold">休憩終了</button>
         @endif

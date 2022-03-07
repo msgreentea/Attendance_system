@@ -31,7 +31,6 @@ class StampController extends Controller
 
             if ($attendance->end_time != null) { //退勤処理済み
                 // (全部押せない)
-                var_dump('should have left already');
                 $punchin_btn = false;
                 $punchout_btn = false;
                 $breakin_btn = false;
@@ -47,7 +46,6 @@ class StampController extends Controller
 
                     if ($breaktime->end_time != null) { // 休憩終了済み
                         // 休憩開始ボタン・退勤処理ボタンが押せる
-                        var_dump('supposed to be out of the breaktime');
                         $breakin_btn = true;
                         $punchout_btn = true;
                         // 出勤ボタン・休憩終了ボタンが押せない
@@ -56,7 +54,6 @@ class StampController extends Controller
                         return view('stamp.index', compact('user', 'attendaselect nce', 'punchin_btn', 'punchout_btn', 'breakin_btn', 'breakout_btn'));
                     } else { // 休憩終了していない
                         // 休憩終了ボタンが押せる
-                        var_dump('supposed to be in the breaktime');
                         $breakout_btn = true;
                         // 出勤処理ボタン・休憩開始ボタン・退勤処理ボタンが押せない
                         $punchin_btn = false;
@@ -66,8 +63,6 @@ class StampController extends Controller
                         return view('stamp.index', compact('user', 'attendance', 'punchin_btn', 'punchout_btn', 'breakin_btn', 'breakout_btn'));
                     }
                 } else { //休憩データが無い
-                    var_dump($breaktime);
-                    var_dump('didnt start breaktime yet');
                     // 休憩開始ボタン・退勤処理ボタンが押せる(鬼畜モード)
                     $breakin_btn = true;
                     $punchout_btn = true;
@@ -79,7 +74,6 @@ class StampController extends Controller
             }
             // 出勤データがない
         } else {
-            var_dump('I didint even start working yet');
             // 出勤開始処理のみ押せる
             $punchin_btn = true;
             // (休憩開始・休憩終了・退勤ボタンが押せない)

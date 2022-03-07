@@ -26,14 +26,14 @@
     <h2 class="sec-title center">
         {{-- getだと @csrf いらない, formタグである必要もない --}}
         <form action="{{ route('attendance.index', ['date' => $previous_date->format('Y-m-d')]) }}" method="get">
-            <button> < </button>
+            <button class="select_btn"> < </button>
             {{-- パラメーターでdateを渡さない場合 --}}
             {{-- <input type="hidden" name="date"" value="{{ $date }}"> --}}
             {{-- <button class="select" name="other_date" value="previous"> < </button> --}}
         </form>
         {{  $date->format('Y-m-d')  }}
         <form action="{{ route('attendance.index', ['date' => $next_date->format('Y-m-d')]) }}" method="get">
-            <button> > </button>
+            <button class="select_btn"> > </button>
             {{-- <input type="hidden" name="date" value="{{ $date }}"> --}}
             {{-- <button class="select" name="other_date" value="next"> > </button> --}}
         </form>

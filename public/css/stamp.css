@@ -1,29 +1,29 @@
 .contents {
-    padding: 20px 0;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+  padding: 20px 0;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 .content {
-    background-color: white;
-    padding: 80px;
-    width: 100%;
-    margin-bottom: 30px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 22px;
+  background-color: white;
+  padding: 80px;
+  width: 100%;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
 }
 form {
-    display: flex;
-    width: calc(100% / 2 - 30px);
+  display: flex;
+  width: calc(100% / 2 - 30px);
 }
 .content p {
-    text-align: center;
-    font-size: 22px;
+  text-align: center;
+  font-size: 22px;
 }
 button:disabled {
-    opacity: 0.8;
-    pointer-events: none;
+  opacity: 0.8;
+  pointer-events: none;
 }
