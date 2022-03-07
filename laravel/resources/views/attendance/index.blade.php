@@ -27,6 +27,7 @@
         {{-- getだと @csrf いらない, formタグである必要もない --}}
         <form action="{{ route('attendance.index', ['date' => $previous_date->format('Y-m-d')]) }}" method="get">
             <button> < </button>
+            {{-- パラメーターでdateを渡さない場合 --}}
             {{-- <input type="hidden" name="date"" value="{{ $date }}"> --}}
             {{-- <button class="select" name="other_date" value="previous"> < </button> --}}
         </form>
@@ -61,7 +62,6 @@
     </table>
     <div class="center pagination">
         {{ $attendances->links() }}
-        {{-- {{ $attendances->links('pagination::bootstrap-4') }} --}}
     </div>
 
 @endsection

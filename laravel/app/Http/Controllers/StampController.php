@@ -88,15 +88,6 @@ class StampController extends Controller
             $punchout_btn = false;
             return view('stamp.index', compact('user', 'attendance', 'punchin_btn', 'punchout_btn', 'breakin_btn', 'breakout_btn'));
         }
-        exit();
-
-        // $btn = [
-        //     'punchin_btn' => $punchin_btn,
-        //     'punchout_btn' => $punchout_btn,
-        //     'breakin_btn' => $breakin_btn,
-        //     'breakout_btn' => $breakout_btn,
-        // ];
-        // return view('stamp.index', compact('user', 'attendance', 'btn'));
     }
 
     // 勤務開始
@@ -132,7 +123,7 @@ class StampController extends Controller
         $attendance = Attendance::where('user_id', $user_id)->where('date', $today)->first();
 
         //出勤時のエラーを先に書くことでbreaktimeのデータを持ってくる必要がなくなる。
-        if ($attendance == null) { // そもそもattendanceにデータが無い場合。start_timeも何も無くて出勤開始していない時
+        if ($attendance == null) { // attendanceにデータが無い場合。start_timeも何も無くて出勤開始していない時
             return redirect()->route('stamp.index')->with('status', '出勤処理をしていません。');
         } elseif ($attendance->end_time != null) { //
             return redirect()->route('stamp.index')->with('status', '既に退勤しています。');

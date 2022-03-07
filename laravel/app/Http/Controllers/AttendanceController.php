@@ -20,6 +20,7 @@ class AttendanceController extends Controller
         $previous_date = $date->copy()->subDay(); //$todayがupdateされてしまう(参照渡し) //copyすることで別の値として定義出来る
         $next_date = $date->copy()->addDay();
 
+        // パラメーターでdateを渡さない場合
         // if ($other_date == 'previous') { // ＜
         //     $date = $today->subDay();
         // } elseif ($request->next != null) { // ＞
@@ -30,7 +31,7 @@ class AttendanceController extends Controller
 
 
         // 日ごとの勤怠情報 -> 勤務開始・勤務終了
-        $attendances = Attendance::where('date', $date->format('Y-m-d'))->paginate(5); // $dateのattendance全部取得
+        $attendances = Attendance::where('date', $date->format('Y-m-d'))->paginate(5);
         $breaktimes = [];
 
         $breaktime_totals = [];
